@@ -82,13 +82,14 @@ const IntermediateForm = () => {
             {errors.edad && touched.edad && (
               <p className="text-red-500 text-sm">{errors.edad}</p>
             )}
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-green-500 text-white px-4 py-2 rounded">
-              {isSubmitting ? "Enviando..." : "Enviar"}
-            </button>
+            <div className="flex justify-center w-full">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-green-600 text-white px-4 py-2 rounded">
+                {isSubmitting ? "Enviando..." : "Enviar"}
+              </button>
+            </div>
           </Form>
         )}
       </Formik>

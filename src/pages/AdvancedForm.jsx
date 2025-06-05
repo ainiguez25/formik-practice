@@ -73,9 +73,7 @@ const AdvancedForm = () => {
                 });
               }}
               className="bg-blue-400 text-white px-3 py-1 rounded mt-2">
-              <PlusCircleIcon
-                className="h-6 w-6 hover:font-semibold hover:scale-110 transform transition-all duration-500 ease-in-out"
-              />
+              <PlusCircleIcon className="h-6 w-6 hover:font-semibold hover:scale-110 transform transition-all duration-500 ease-in-out" />
             </button>
             {values.ingredientes.map((ingrediente, index) => (
               <div key={index} className="flex space-x-2">
@@ -140,19 +138,18 @@ const AdvancedForm = () => {
                     });
                   }}
                   className="text-red-500">
-                  <TrashIcon
-                    className="h-6 w-6 hover:font-semibold hover:scale-110 transform transition-all duration-500 ease-in-out"
-                  />
+                  <TrashIcon className="h-6 w-6 hover:font-semibold hover:scale-110 transform transition-all duration-500 ease-in-out" />
                 </button>
               </div>
             ))}
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-green-500 text-white px-4 py-2 rounded">
-              {isSubmitting ? "Guardando..." : "Guardar"}
-            </button>
+            <div className="flex justify-center w-full">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-green-600 text-white px-4 py-2 rounded">
+                {isSubmitting ? "Guardando..." : "Guardar"}
+              </button>
+            </div>
           </Form>
         )}
       </Formik>
