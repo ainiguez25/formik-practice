@@ -8,7 +8,7 @@ const BasicForm = () => {
       initialValues={{ name: "", email: "" }}
       onSubmit={(values) => {
         alert("Formulario básico enviado correctamente");
-        console.log(values);
+        console.log("values", values);
       }}
     >
       {({ handleChange, values }) => (

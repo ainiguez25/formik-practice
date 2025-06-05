@@ -30,6 +30,7 @@ const IntermediateForm = () => {
     } else {
       toast.success("Formulario enviado correctamente");
       formActions.setSubmitting(false);
+      formActions.resetForm();
       setShowModal(false);
     }
   };
