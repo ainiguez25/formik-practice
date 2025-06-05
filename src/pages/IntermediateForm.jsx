@@ -1,28 +1,16 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import toast from "react-hot-toast";
-
-const ConfirmationModal = ({ show, onConfirm, onCancel, message }) => {
-  if (!show) return null;
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-      <div className="bg-white p-4 rounded shadow">
-        <p>{message}</p>
-        <div className="mt-4 flex justify-end gap-2">
-          <button onClick={onCancel} className="px-3 py-1 bg-gray-300 rounded">
-            Cancelar
-          </button>
-          <button onClick={onConfirm} className="px-3 py-1 bg-blue-500 text-white rounded">
-            Confirmar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const IntermediateForm = () => {
+  //Modal Confirmacion
+  const [title, setTitle] = useState("Confirmation");
+  const [message, setMessage] = useState("Are you sure you do this?");
+  const [type, setType] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal(!showModal);
+
   const [formData, setFormData] = useState(null);
   const [formActions, setFormActions] = useState(null);
 
@@ -33,22 +21,28 @@ const IntermediateForm = () => {
     return errors;
   };
 
-  const handleConfirm = () => {
-    toast.success("Formulario enviado correctamente");
-    formActions.setSubmitting(false);
-    setShowModal(false);
+  const handleConfirm = (confir) => {
+    if (!confir) {
+      toast.error("Formulario no enviado");
+      formActions.setSubmitting(false);
+      console.log("Form data not submitted:", formData);
+      setShowModal(false);
+    } else {
+      toast.success("Formulario enviado correctamente");
+      formActions.setSubmitting(false);
+      setShowModal(false);
+    }
   };
 
   return (
     <>
       <ConfirmationModal
-        show={showModal}
-        message="¿Desea enviar este formulario?"
-        onCancel={() => {
-          formActions.setSubmitting(false);
-          setShowModal(false);
-        }}
-        onConfirm={handleConfirm}
+        isOpen={showModal}
+        toggle2={toggleModal}
+        message={message}
+        title={title}
+        type={type}
+        toggleConfirmation={handleConfirm}
       />
 
       <Formik
@@ -57,9 +51,11 @@ const IntermediateForm = () => {
         onSubmit={(values, actions) => {
           setFormData(values);
           setFormActions(actions);
-          setShowModal(true);
-        }}
-      >
+          toggleModal();
+          setTitle("Confirmación de Envío");
+          setMessage("¿Estás seguro de que deseas enviar este formulario?");
+          setType(1);
+        }}>
         {({ handleChange, values, errors, touched, isSubmitting }) => (
           <Form className="max-w-md space-y-4">
             <input
@@ -89,8 +85,7 @@ const IntermediateForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-green-500 text-white px-4 py-2 rounded"
-            >
+              className="bg-green-500 text-white px-4 py-2 rounded">
               {isSubmitting ? "Enviando..." : "Enviar"}
             </button>
           </Form>
