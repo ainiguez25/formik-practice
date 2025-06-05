@@ -1,0 +1,44 @@
+// forms/BasicForm.jsx
+import React from "react";
+import { Formik, Form } from "formik";
+
+const BasicForm = () => {
+  return (
+    <Formik
+      initialValues={{ name: "", email: "" }}
+      onSubmit={(values) => {
+        alert("Formulario básico enviado correctamente");
+        console.log(values);
+      }}
+    >
+      {({ handleChange, values }) => (
+        <Form className="space-y-4 max-w-md">
+          <input
+            type="text"
+            name="name"
+            placeholder="Nombre"
+            onChange={handleChange}
+            value={values.name}
+            className="w-full border rounded px-3 py-2"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Correo electrónico"
+            onChange={handleChange}
+            value={values.email}
+            className="w-full border rounded px-3 py-2"
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            Enviar
+          </button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default BasicForm;
